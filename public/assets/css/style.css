@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Granim.js background canvas */
+#granim-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* push behind content */
+  }
+
+/* Main content container */
+.container {
+    position: relative;
+    z-index: 1; /* ensure content appears above background */
+  } 
+
+  
+  
+  .section-title {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .hero {
+    margin-top: 1rem;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+}
+
+
+.chart-section canvas {
+    display: block;
+    margin: 0 auto 2rem;
+    max-width: 100%;
+  }
