@@ -1,95 +1,105 @@
-  // Initialize Granim.js gradient background
-  const granimInstance = new Granim({
-    element: '#granim-canvas',
-    direction: 'diagonal',
-    isPausedWhenNotInView: true,
-    states: {
-      "default-state": {
-        gradients: [
-          ['#ff9966', '#ff5e62'],
-          ['#00F260', '#0575E6'],
-          ['#e1eec3', '#f05053']
-        ],
-        transitionSpeed: 4000
-      }
+// Initialize Granim.js gradient background
+const granimInstance = new Granim({
+  element: '#granim-canvas',
+  direction: 'diagonal',
+  isPausedWhenNotInView: true,
+  states: {
+    "default-state": {
+      gradients: [
+        ['#fde2f3', '#d0e7ff'],
+        ['#e0f7fa', '#cce5ff'],
+        ['#fff1cc', '#ffd6d6']
+      ],
+      transitionSpeed: 4000
     }
-  });
+  }
+});
 
-// Initialize Glide
+// Initialize Glide - for hero section
 new Glide('.glide', {
-    type: 'carousel',
-    autoplay: 3000
+  type: 'carousel',
+  autoplay: 3000
 }).mount();
 
 // Initialize Leaflet Map
-const map = L.map('map').setView([20, 0], 2);
+const map = L.map('map').setView([50, 0], 4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+  attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
-
 // Add markers
-L.marker([48.8566, 2.3522]).addTo(map).bindPopup("Paris");
-L.marker([51.5074, -0.1278]).addTo(map).bindPopup("London");
-L.marker([35.6895, 139.6917]).addTo(map).bindPopup("Tokyo");
-L.marker([22.3193, 114.1694]).addTo(map).bindPopup("Hong Kong");
-L.marker([-33.8688, 151.2093]).addTo(map).bindPopup("Sydney");
+L.marker([48.8566, 2.3522]).addTo(map).bindPopup("Hello from Paris!");
+L.marker([51.5074, -0.1278]).addTo(map).bindPopup("Hello from London!");
+L.marker([35.6895, 139.6917]).addTo(map).bindPopup("Hello from Tokyo!");
+L.marker([22.3193, 114.1694]).addTo(map).bindPopup("Hello from Hong Kong!");
+L.marker([-33.8688, 151.2093]).addTo(map).bindPopup("Hello from Sydney!");
+
+// Create Chart.js bar chart
+// Top Travel Destination Bar Chart
+(async function () {
+  const data = [
+    { location: "London", visitors: 15 },
+    { location: "Paris", visitors: 22 },
+    { location: "Tokyo", visitors: 33 },
+    { location: "Hong Kong", visitors: 9 },
+    { location: "Sydney", visitors: 18 },
+  ];
+
+  new Chart(
+    document.getElementById('travelChart'),
+    {
+      type: 'bar',
+      data: {
+        labels: data.map(row => row.location),
+        datasets: [
+          {
+            label: 'Visitors by year',
+            data: data.map(row => row.visitors),
+            options: {
+              responsive: true,
+            }
+          }]
+      }
+    });
+})();
+
+// Average Ticket Price Line Chart
+(async function () {
+  const dataTix = [
+    { month: "Jan", price: 1200 },
+    { month: "Feb", price: 1150 },
+    { month: "Mar", price: 1100 },
+    { month: "Apr", price: 1080 },
+    { month: "May", price: 1120 },
+    { month: "Jun", price: 1300 },
+    { month: "Jul", price: 1400 },
+    { month: "Aug", price: 1450 },
+    { month: "Sep", price: 1250 },
+    { month: "Oct", price: 1100 },
+    { month: "Nov", price: 1050 },
+    { month: "Dec", price: 1250 },
+  ];
+
+  new Chart(
+    document.getElementById('priceChart'),
+    {
+      type: 'line',
+      data: {
+        labels: dataTix.map(row => row.month),
+        datasets: [
+          {
+            label: 'Average Ticket Price (US$)',
+            data: dataTix.map(row => row.price),
+            options: {
+              responsive: true,
+            }
+          }]
+      }
+    });
+})();
+
 
 // Initialize AOS (Animate On Scroll)
 AOS.init({
-    duration: 1000,
-    once: true
-  });
-  
-  
-  // Create Chart.js bar chart
-  const ctx = document.getElementById('travelChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['London', 'Hong Kong', 'Sydney'],
-      datasets: [{
-        label: 'Visitors (in millions)',
-        data: [15, 18, 10],
-        backgroundColor: ['#36a2eb', '#ff6384', '#ffce56']
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        title: { display: false }
-      }
-    }
-  });
-  
-  // Create Chart.js line chart for average ticket price by month
-const priceCanvas = document.getElementById('priceChart');
-if (priceCanvas) {
-  const priceCtx = priceCanvas.getContext('2d');
-  new Chart(priceCtx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [{
-        label: 'Avg Ticket Price ($)',
-        data: [1200, 1150, 1100, 1080, 1120, 1300, 1400, 1450, 1250, 1100, 1050, 1150],
-        fill: false,
-        borderColor: '#4bc0c0',
-        tension: 0.3
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top'
-        },
-        title: {
-          display: true,
-          text: 'Average Ticket Price by Month'
-        }
-      }
-    }
-  });
-}
+  duration: 1000,
+  once: true
+});
